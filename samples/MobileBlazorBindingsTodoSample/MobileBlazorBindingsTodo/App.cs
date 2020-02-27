@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.MobileBlazorBindings;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MobileBlazorBindingsTodo
@@ -14,10 +18,12 @@ namespace MobileBlazorBindingsTodo
 
         public App(IServiceCollection additionalServices)
         {
-            AppHost = Host.CreateDefaultBuilder()
+            //var a = Assembly.GetExecutingAssembly();
+            //using var stream = a.GetManifestResourceStream($"{a.FullName}.appsettings.json");
+
+            AppHost = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
-                    // Register backend-specific services (e.g. iOS, Android)
                     if (additionalServices != null)
                     {
                         services.AddAdditionalServices(additionalServices);
@@ -28,7 +34,21 @@ namespace MobileBlazorBindingsTodo
                 })
                 .Build();
 
-            AppHost.AddComponent<TodoApp>(parent: this);
+            MainPage = new TabbedPage();
+            AppHost.AddComponent<TodoApp>(parent: MainPage);
+        }
+
+        private void ConfigureServices(HostBuilderContext hostBuilderContext, IServiceCollection serviceCollection,
+            IServiceCollection additionalServices)
+        {
+            //Register backend-specific services(e.g.iOS, Android)
+                    if (additionalServices != null)
+            {
+                serviceCollection.AddAdditionalServices(additionalServices);
+            }
+
+            // Register app-specific services
+            serviceCollection.AddSingleton<AppState>();
         }
 
         protected override void OnStart()

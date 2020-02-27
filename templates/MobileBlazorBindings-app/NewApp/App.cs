@@ -18,8 +18,7 @@ namespace NewApp
                 })
                 .Build();
 
-            MainPage = new ContentPage();
-            host.AddComponent<HelloWorld>(parent: MainPage);
+            host.AddComponent<HelloWorld>(parent: this);
         }
 
         protected override void OnStart()

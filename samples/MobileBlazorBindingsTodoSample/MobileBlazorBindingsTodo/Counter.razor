@@ -1,7 +1,7 @@
 ﻿@inject AppState AppState
 
-<StackLayout>
-    <Label FontSize="30" FontAttributes="FontAttributes.Italic" Text="@("You have pressed " + AppState.Counter + " times")" />
+<StackLayout Padding="20">
+    <Label Margin="20" FontSize="15" FontAttributes="FontAttributes.Italic" Text="@("You have pressed " + AppState.Counter + " times")" />
     <Button OnClick="HandleClick">
         +1
     </Button>

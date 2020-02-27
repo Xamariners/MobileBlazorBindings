@@ -1,6 +1,6 @@
 ﻿@using Xamarin.Essentials
 
-<StackLayout>
+<StackLayout Padding="20">
     <StackLayout>
         <StackLayout Orientation="StackOrientation.Horizontal"
                      BackgroundColor="primaryColor">
@@ -28,8 +28,8 @@
                 <FormattedText>
                     <FormattedString>
                         <Spans>
-                            <Span>This app is written in C# and native APIs using the </Span>
-                            <Span FontAttributes="FontAttributes.Bold">Xamarin Platform</Span>
+                            <Span>This app is written in C# and native APIs using the</Span>
+                            <Span FontAttributes="FontAttributes.Bold"> Xamarin Platform</Span>
                             <Span>.</Span>
                         </Spans>
                     </FormattedString>
@@ -46,7 +46,7 @@
                     </FormattedString>
                 </FormattedText>
             </Label>
-            <Button OnClick="OpenWeb"
+            <Button OnClick="OpenWeb" VerticalOptions="LayoutOptions.EndAndExpand"
                     BackgroundColor="primaryColor"
                     TextColor="Color.White">
                 Learn more

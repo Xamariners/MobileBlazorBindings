@@ -10,9 +10,11 @@ namespace MobileBlazorBindingsWeather
 {
     public class App : Application
     {
+        public IHost AppHost { get; }
+
         public App()
         {
-            var host = Host.CreateDefaultBuilder()
+            AppHost = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
                     // Register app-specific services
@@ -20,7 +22,8 @@ namespace MobileBlazorBindingsWeather
                 })
                 .Build();
 
-            host.AddComponent<MainPage>(parent: this);
+            MainPage = new ContentPage();
+            AppHost.AddComponent<MainPage>(parent: MainPage);
         }
 
         protected override void OnStart()

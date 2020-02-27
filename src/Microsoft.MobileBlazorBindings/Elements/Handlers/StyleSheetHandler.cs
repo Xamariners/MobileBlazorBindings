@@ -4,6 +4,7 @@
 using Microsoft.MobileBlazorBindings.Core;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using XF = Xamarin.Forms;
 using XFS = Xamarin.Forms.StyleSheets;
@@ -84,7 +85,17 @@ namespace Microsoft.MobileBlazorBindings.Elements.Handlers
                     {
                         throw new InvalidOperationException($"Specifying a '{nameof(Resource)}' property value '{Resource}' requires also specifying the '{nameof(Assembly)}' property to indicate the assembly containing the resource.");
                     }
-                    var styleSheet = XFS.StyleSheet.FromResource(resourcePath: Resource, assembly: Assembly);
+
+                    var resourceName = Assembly.GetManifestResourceNames().SingleOrDefault(x => x.Contains(Resource));
+                    
+                    if (string.IsNullOrEmpty(resourceName))
+                        return;
+
+                    using Stream stream = Assembly.GetManifestResourceStream(resourceName);
+                    using StreamReader reader = new StreamReader(stream);
+                    string result = reader.ReadToEnd();
+
+                    var styleSheet = XFS.StyleSheet.FromString(result);
                     _parentVisualElement.Resources.Add(styleSheet);
                 }
                 if (Text != null)

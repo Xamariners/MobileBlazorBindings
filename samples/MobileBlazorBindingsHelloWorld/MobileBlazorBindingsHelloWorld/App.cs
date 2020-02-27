@@ -9,9 +9,11 @@ namespace MobileBlazorBindingsHelloWorld
 {
     public class App : Application
     {
+        public IHost AppHost { get; }
+
         public App()
         {
-            var host = Host.CreateDefaultBuilder()
+            AppHost = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
                     // Register app-specific services
@@ -19,7 +21,8 @@ namespace MobileBlazorBindingsHelloWorld
                 })
                 .Build();
 
-            host.AddComponent<HelloWorld>(parent: this);
+            MainPage = new ContentPage();
+            AppHost.AddComponent<HelloWorld>(parent: MainPage);
         }
 
         protected override void OnStart()
