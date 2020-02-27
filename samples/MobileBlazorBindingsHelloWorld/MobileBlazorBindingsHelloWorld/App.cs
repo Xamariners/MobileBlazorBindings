@@ -3,6 +3,7 @@
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.MobileBlazorBindings;
+using MobileBlazorBindingsHelloWorld.Pages;
 using Xamarin.Forms;
 
 namespace MobileBlazorBindingsHelloWorld

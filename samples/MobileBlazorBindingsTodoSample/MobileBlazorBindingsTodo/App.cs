@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.MobileBlazorBindings;
+using MobileBlazorBindingsTodo.Pages;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -18,9 +19,6 @@ namespace MobileBlazorBindingsTodo
 
         public App(IServiceCollection additionalServices)
         {
-            //var a = Assembly.GetExecutingAssembly();
-            //using var stream = a.GetManifestResourceStream($"{a.FullName}.appsettings.json");
-
             AppHost = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -36,19 +34,6 @@ namespace MobileBlazorBindingsTodo
 
             MainPage = new TabbedPage();
             AppHost.AddComponent<TodoApp>(parent: MainPage);
-        }
-
-        private void ConfigureServices(HostBuilderContext hostBuilderContext, IServiceCollection serviceCollection,
-            IServiceCollection additionalServices)
-        {
-            //Register backend-specific services(e.g.iOS, Android)
-                    if (additionalServices != null)
-            {
-                serviceCollection.AddAdditionalServices(additionalServices);
-            }
-
-            // Register app-specific services
-            serviceCollection.AddSingleton<AppState>();
         }
 
         protected override void OnStart()

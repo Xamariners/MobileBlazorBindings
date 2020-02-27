@@ -4,6 +4,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.MobileBlazorBindings;
+using MobileBlazorBindingsWeather.Pages;
 using Xamarin.Forms;
 
 namespace MobileBlazorBindingsWeather
