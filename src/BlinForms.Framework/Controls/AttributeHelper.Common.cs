@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using System;
 using System.Globalization;
 
 namespace BlinForms.Framework.Controls
@@ -9,9 +10,19 @@ namespace BlinForms.Framework.Controls
     {
         public static bool GetBool(object value)
         {
-            return (value == null)
-                ? false
-                : (bool)value;
+            switch (value)
+            {
+                case string s:
+                {
+                    if (int.TryParse(s, out var numResult))
+                        return Convert.ToBoolean(numResult);
+
+                    return bool.TryParse(s, out var result) && result;
+                }
+
+                default:
+                    return (bool?)value ?? false;
+            }
         }
 
         public static int GetInt(object value)
